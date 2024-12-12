@@ -32,6 +32,22 @@ Install the application:
 helm install conference oci://docker.io/salaboy/conference-app --version v2.0.0
 ```
 
+Wait for all the pods are in Running state: 
+
+```
+kubectl get pods
+NAME                                                           READY   STATUS    RESTARTS      AGE
+conference-agenda-service-deployment-5dd4bf67b-z27pp           2/2     Running   2 (81m ago)   87m
+conference-c4p-service-deployment-57b5985757-pnjh9             2/2     Running   2 (81m ago)   87m
+conference-frontend-deployment-69d9b479b7-5lk8n                2/2     Running   0             87m
+conference-kafka-0                                             1/1     Running   0             87m
+conference-notifications-service-deployment-7b6cbf965d-q577g   2/2     Running   2 (81m ago)   87m
+conference-postgresql-0                                        1/1     Running   0             87m
+conference-redis-master-0                                      1/1     Running   0             87m
+dapr-dashboard-56788c76dd-sh24l                                1/1     Running   0             82m
+flagd-6bbdc5d999-6tb5c                                         1/1     Running   0             87m
+```
+
 To access the application: 
 ```
 kubectl port-forward svc/frontend 8080:80
