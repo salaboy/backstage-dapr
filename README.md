@@ -49,6 +49,32 @@ To access the Dashboard:
 kubectl port-forward svc/dapr-dashboard 8081:8080
 ```
 
+
+# APIs to get data from backend
+
+Get all apps
+
+```
+curl http://localhost:8081/api/instances/All
+```
+
+Get `notification-service` details
+
+```
+curl http://localhost:8081/api/instances/All/notifications-service
+```
+
+Get Dapr Components
+
+```
+curl http://localhost:8081/api/components/All
+```
+
+Get Single Dapr Component
+```
+curl http://localhost:8081/api/components/All/conference-agenda-service-statestore
+```
+
 The Dapr Dashboard with the application running looks like this: 
 
 ![](imgs/1.png)
