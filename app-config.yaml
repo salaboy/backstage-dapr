@@ -50,7 +50,10 @@ proxy:
     '/dapr':
       target: 'http://localhost:8081'
       changeOrigin: true
+      credentials: dangerously-allow-unauthenticated
 
+dapr:
+  uiUrl: http://localhost:8081/overview
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs
 # and an external cloud storage when deploying TechDocs for production use-case.

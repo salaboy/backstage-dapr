@@ -1,5 +1,4 @@
 /*
- * Copyright 2024 The Backstage Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -11,12 +10,24 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
+ *
  * limitations under the License.
  */
-import { darpPlugin } from './plugin';
 
-describe('dapr', () => {
-  it('should export plugin', () => {
-    expect(darpPlugin).toBeDefined();
-  });
-});
+import { useEntity } from '@backstage/plugin-catalog-react';
+export const DAPR_APPLICATION_ID = 'dapr.io/application-id';
+
+
+export const daprApplicationId = () => {
+    const { entity } = useEntity();
+
+    const dapr_application_id =
+        entity.metadata.annotations?.[DAPR_APPLICATION_ID] ?? '';
+
+    if (!dapr_application_id) {
+        throw new Error("'Dapr' annotations are missing");
+        }
+        return { dapr_application_id };
+};
+
+

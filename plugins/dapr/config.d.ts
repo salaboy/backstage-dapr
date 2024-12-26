@@ -13,10 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { darpPlugin } from './plugin';
-
-describe('dapr', () => {
-  it('should export plugin', () => {
-    expect(darpPlugin).toBeDefined();
-  });
-});
+export interface Config {
+    /** Configurations for the Dapr plugin */
+    dapr?: {
+      /**
+       * The UI url of the Dapr instance.
+       * @visibility frontend
+       */
+      uiUrl?: string;
+    };
+  }
