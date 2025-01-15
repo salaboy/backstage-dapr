@@ -58,12 +58,14 @@ import {
   EntityKubernetesContent,
   isKubernetesAvailable,
 } from '@backstage/plugin-kubernetes';
-import { ApplicationSummaryCard } from '@internal/backstage-plugin-dapr/src/components/widgets/ApplicationSummaryCard';
-import { ApplicationComponentsCard } from '@internal/backstage-plugin-dapr/src/components/widgets/ApplicationComponentsCard';
-import { ApplicationSubscriptionsCard } from '@internal/backstage-plugin-dapr/src/components/widgets/ApplicationSubscriptionsCard';
-import { ApplicationActorsCard } from '@internal/backstage-plugin-dapr/src/components/widgets/ApplicationActorsCard';
-import { isDaprAvailable } from '@internal/backstage-plugin-dapr';
-import { Dapr } from '@internal/backstage-plugin-dapr/src/components/Dapr/Dapr';
+import {
+  DaprEntityContent,
+  ApplicationSummaryCard,
+  ApplicationActorsCard,
+  ApplicationComponentsCard,
+  isDaprAvailable,
+  ApplicationSubscriptionsCard,
+} from '@internal/backstage-plugin-dapr';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -148,18 +150,22 @@ const overviewContent = (
     <Grid item md={8} xs={12}>
       <EntityHasSubcomponentsCard variant="gridItem" />
     </Grid>
-    <Grid item md={4} xs={12}>
-      < ApplicationSummaryCard/>
-    </Grid>
-    <Grid item md={8}>
-      < ApplicationComponentsCard/>
-    </Grid>
-    <Grid item md={8}>
-      < ApplicationSubscriptionsCard/>
-    </Grid>
-    <Grid item md={4}>
-      < ApplicationActorsCard/>
-    </Grid>
+    <EntitySwitch>
+      <EntitySwitch.Case if={e => Boolean(isDaprAvailable(e))}>
+        <Grid item md={4} xs={12}>
+          <ApplicationSummaryCard />
+        </Grid>
+        <Grid item md={8}>
+          <ApplicationComponentsCard />
+        </Grid>
+        <Grid item md={8}>
+          <ApplicationSubscriptionsCard />
+        </Grid>
+        <Grid item md={4}>
+          <ApplicationActorsCard />
+        </Grid>
+      </EntitySwitch.Case>
+    </EntitySwitch>
   </Grid>
 );
 
@@ -241,12 +247,8 @@ const websiteEntityPage = (
     <EntityLayout.Route path="/docs" title="Docs">
       {techdocsContent}
     </EntityLayout.Route>
-    <EntityLayout.Route
-      path="/dapr"
-      title="Dapr"
-      if={isDaprAvailable}
-    >
-      <Dapr />
+    <EntityLayout.Route path="/dapr" title="Dapr" if={isDaprAvailable}>
+      <DaprEntityContent />
     </EntityLayout.Route>
   </EntityLayout>
 );

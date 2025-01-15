@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { darpPlugin } from './plugin';
+import { daprPlugin } from './plugin';
 
 describe('dapr', () => {
   it('should export plugin', () => {
-    expect(darpPlugin).toBeDefined();
+    expect(daprPlugin).toBeDefined();
   });
 });

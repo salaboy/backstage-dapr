@@ -1,5 +1,10 @@
 export {
-    DarpPage, darpPlugin
+  daprPlugin,
+  ApplicationActorsCard,
+  ApplicationComponentsCard,
+  ApplicationSubscriptionsCard,
+  ApplicationSummaryCard,
+  DaprEntityContent,
 } from './plugin';
 export * from './api';
-export * from './components';
+export { isDaprAvailable } from './utils/isDaprAvailable';

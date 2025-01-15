@@ -48,7 +48,7 @@ spec:
   lifecycle: experimental
   owner: guests
   system: conference-application
-  providesApis: [agenda-service-api] 
+  providesApis: [agenda-service-api]
 
 ---
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-component
@@ -63,7 +63,7 @@ spec:
   lifecycle: experimental
   owner: guests
   system: conference-application
-  providesApis: [c4p-service-api]   
+  providesApis: [c4p-service-api]
 
 ---
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-api
@@ -76,7 +76,7 @@ spec:
   lifecycle: experimental
   owner: guests
   system: conference-application
-  definition: 
+  definition:
     $text: https://github.com/salaboy/platforms-on-k8s/blob/v2.0.0/conference-application/frontend-go/kodata/docs/openapi.yaml
 
 ---
@@ -90,7 +90,7 @@ spec:
   lifecycle: experimental
   owner: guests
   system: conference-application
-  definition: 
+  definition:
     $text: https://github.com/salaboy/platforms-on-k8s/blob/v2.0.0/conference-application/notifications-service/kodata/docs/openapi.yaml
 
 ---
@@ -104,7 +104,7 @@ spec:
   lifecycle: experimental
   owner: guests
   system: conference-application
-  definition: 
+  definition:
     $text: https://github.com/salaboy/platforms-on-k8s/blob/v2.0.0/conference-application/agenda-service/kodata/docs/openapi.yaml
 
 ---
@@ -118,5 +118,5 @@ spec:
   lifecycle: experimental
   owner: guests
   system: conference-application
-  definition: 
+  definition:
     $text: https://github.com/salaboy/platforms-on-k8s/blob/v2.0.0/conference-application/c4p-service/kodata/docs/openapi.yaml

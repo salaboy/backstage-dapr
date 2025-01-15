@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 export interface Config {
-    /** Configurations for the Dapr plugin */
-    dapr?: {
-      /**
-       * The UI url of the Dapr instance.
-       * @visibility frontend
-       */
-      uiUrl?: string;
-    };
-  }
+  /** Configurations for the Dapr plugin */
+  dapr?: {
+    /**
+     * The UI url of the Dapr instance.
+     * @visibility frontend
+     */
+    uiUrl?: string;
+  };
+}

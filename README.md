@@ -9,7 +9,6 @@ yarn install
 yarn dev
 ```
 
-
 # Create a KIND Cluster with a Dapr Application
 
 ```
@@ -26,13 +25,13 @@ helm upgrade --install dapr dapr/dapr \
 --wait
 ```
 
-Install the application: 
+Install the application:
 
 ```
 helm install conference oci://docker.io/salaboy/conference-app --version v2.0.0
 ```
 
-Wait for all the pods are in Running state: 
+Wait for all the pods are in Running state:
 
 ```
 kubectl get pods
@@ -48,7 +47,8 @@ dapr-dashboard-56788c76dd-sh24l                                1/1     Running  
 flagd-6bbdc5d999-6tb5c                                         1/1     Running   0             87m
 ```
 
-To access the application: 
+To access the application:
+
 ```
 kubectl port-forward svc/frontend 8080:80
 ```
@@ -59,12 +59,11 @@ Install the Dapr Dashboard:
 helm install dapr-dashboard dapr/dapr-dashboard
 ```
 
-To access the Dashboard: 
+To access the Dashboard:
 
 ```
 kubectl port-forward svc/dapr-dashboard 8081:8080
 ```
-
 
 # APIs to get data from backend
 
@@ -87,11 +86,12 @@ curl http://localhost:8081/api/components/All
 ```
 
 Get Single Dapr Component
+
 ```
 curl http://localhost:8081/api/components/All/conference-agenda-service-statestore
 ```
 
-The Dapr Dashboard with the application running looks like this: 
+The Dapr Dashboard with the application running looks like this:
 
 ![](imgs/1.png)
 ![](imgs/2.png)

@@ -1,11 +1,11 @@
 import React from 'react';
 import { createDevApp } from '@backstage/dev-utils';
-import { daprPlugin, DaprPage } from '../src/plugin';
+import { daprPlugin, DaprEntityContent } from '../src/plugin';
 
 createDevApp()
   .registerPlugin(daprPlugin)
   .addPage({
-    element: <DaprPage />,
+    element: <DaprEntityContent />,
     title: 'Root Page',
     path: '/dapr',
   })
