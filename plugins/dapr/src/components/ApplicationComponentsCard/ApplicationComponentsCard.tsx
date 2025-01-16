@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { EmptyState, Table } from '@backstage/core-components';
+import { EmptyState, Link, Table } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
 import { Typography } from '@material-ui/core';
 import { columns, useStyles } from './tableHeading';
 import { daprApiRef } from '../../api';
 import { daprApplicationId } from '../../utils/isDaprAvailable';
 import { Component } from '../../types';
+import { daprUI } from '../../utils/isDaprUiConfigured';
 
 export const ApplicationComponentsCard = () => {
   const applicationId = daprApplicationId();
@@ -14,6 +15,15 @@ export const ApplicationComponentsCard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const classes = useStyles();
+
+  const title = daprUI() ? (
+    <>
+      {`Dapr Components: `}
+      <Link to={`${daprUI()}/${applicationId}`}>{`${applicationId}`}</Link>
+    </>
+  ) : (
+    `Dapr components: ${applicationId}`
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,7 +51,7 @@ export const ApplicationComponentsCard = () => {
     return <Typography>Loading...</Typography>;
   }
 
-  if (error) {
+  if (error || !data) {
     return (
       <Table
         options={{
@@ -59,37 +69,14 @@ export const ApplicationComponentsCard = () => {
             ;
           </div>
         }
-        title="Components"
-      />
-    );
-  }
-
-  if (!data) {
-    return (
-      <Table
-        options={{
-          paging: false,
-        }}
-        data={[]}
-        columns={columns}
-        emptyContent={
-          <div className={classes.empty}>
-            <EmptyState
-              missing="data"
-              title="No data to show"
-              description="Check if the application_id is correct or if there is any connectivity issue with the Dapr API"
-            />
-            ;
-          </div>
-        }
-        title="Components"
+        title={title}
       />
     );
   }
 
   return (
     <Table
-      title="Components"
+      title={title}
       options={{ sorting: true, paging: true, padding: 'dense' }}
       data={data}
       columns={columns}

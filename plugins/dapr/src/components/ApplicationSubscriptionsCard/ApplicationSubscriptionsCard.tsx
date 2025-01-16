@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { EmptyState, Table } from '@backstage/core-components';
+import { EmptyState, Link, Table } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
 import { Typography } from '@material-ui/core';
 import { columns, useStyles } from './tableHeading';
 import { daprApiRef } from '../../api';
 import { Subscription } from '../../types';
 import { daprApplicationId } from '../../utils/isDaprAvailable';
+import { daprUI } from '../../utils/isDaprUiConfigured';
 
 export const ApplicationSubscriptionsCard = () => {
   const applicationId = daprApplicationId();
@@ -14,6 +15,15 @@ export const ApplicationSubscriptionsCard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const classes = useStyles();
+
+  const title = daprUI() ? (
+    <>
+      {`Dapr Subscriptions: `}
+      <Link to={`${daprUI()}/${applicationId}`}>{`${applicationId}`}</Link>
+    </>
+  ) : (
+    `Dapr Subscriptions: ${applicationId}`
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,7 +51,7 @@ export const ApplicationSubscriptionsCard = () => {
     return <Typography>Loading...</Typography>;
   }
 
-  if (error) {
+  if (error || !data) {
     return (
       <Table
         options={{
@@ -59,37 +69,14 @@ export const ApplicationSubscriptionsCard = () => {
             ;
           </div>
         }
-        title="Subscriptions"
-      />
-    );
-  }
-
-  if (!data) {
-    return (
-      <Table
-        options={{
-          paging: false,
-        }}
-        data={[]}
-        columns={columns}
-        emptyContent={
-          <div className={classes.empty}>
-            <EmptyState
-              missing="data"
-              title="No data to show"
-              description="Check if the application_id is correct or if there is any connectivity issue with the Dapr API"
-            />
-            ;
-          </div>
-        }
-        title="Subscriptions"
+        title={title}
       />
     );
   }
 
   return (
     <Table
-      title="Subscriptions"
+      title={title}
       options={{ sorting: true, paging: true, padding: 'dense' }}
       data={data}
       columns={columns}

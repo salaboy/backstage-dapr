@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   EmptyState,
   InfoCard,
+  Link,
   StructuredMetadataTable,
 } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
@@ -17,6 +18,7 @@ import {
 import { daprApiRef } from '../../api';
 import { ApplicationInstance } from '../../types';
 import { daprApplicationId } from '../../utils/isDaprAvailable';
+import { daprUI } from '../../utils/isDaprUiConfigured';
 
 export const ApplicationSummaryCard = () => {
   const applicationId = daprApplicationId();
@@ -25,6 +27,15 @@ export const ApplicationSummaryCard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [openManifest, setOpenManifest] = useState(false);
+
+  const title = daprUI() ? (
+    <>
+      {`Darp Application Instance: `}
+      <Link to={`${daprUI()}/${applicationId}`}>{`${applicationId}`}</Link>
+    </>
+  ) : (
+    `Darp Application Instance: ${applicationId}`
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,7 +85,7 @@ export const ApplicationSummaryCard = () => {
     return <Typography>Loading...</Typography>;
   }
 
-  if (error) {
+  if (error || !data) {
     return (
       <EmptyState
         missing="data"
@@ -84,12 +95,8 @@ export const ApplicationSummaryCard = () => {
     );
   }
 
-  if (!data) {
-    return <Typography>No data available</Typography>;
-  }
-
   return (
-    <InfoCard title="Darp Application Instance">
+    <InfoCard title={title}>
       <Box position="relative">
         <StructuredMetadataTable metadata={data} />
       </Box>
